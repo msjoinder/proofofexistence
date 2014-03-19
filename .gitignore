@@ -37,3 +37,7 @@ nosetests.xml
 
 .settings/
 *.swp
+
+.gitfog
+
+.gitignore
