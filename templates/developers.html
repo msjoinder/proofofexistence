@@ -2,16 +2,16 @@
 <h1>Developer API</h1>
 
 <p>This API allows developers to integrate their systems with
-	proofofexistence's functionality. You can access all of the app's
+	Proof of Science. You can access all of the app's
 	features through an HTTP interface.</p>
 <p>It consists of the following two calls:
 <ul>
-	<li><strong>http://www.proofofexistence.com/api/v1/register</strong>:
+	<li><strong>http://proofofscience.appspot.com/api/v1/register</strong>:
 		used to register a new document's <a href="#sha256">SHA256 digest</a>.
 		Returns a payment address where you need to send the bitcoins to have
 		the document certified in the blockchain, and the ammount of bitcoins
 		you need to send expressed in satoshis (100000000 satoshis = 1 BTC)</li>
-	<li><strong>http://www.proofofexistence.com/api/v1/status</strong>:
+	<li><strong>http://proofofscience.appspot.com/api/v1/status</strong>:
 		Receives a digest and returns <code>registered</code>, <code>pending</code>
 		or <code>confirmed</code> if the document was registered, was paid for
 		and pending blockchain insertion, or confirmed by the blockchain,
@@ -30,7 +30,7 @@ Checking the status for a digest which was never submitted will give
 "success": false, as follows:
 
 <pre>
-	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://www.proofofexistence.com/api/v1/status; echo
+	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://proofofscience.appspot.com/api/v1/status; echo
 {
     "success": false,
     "reason": "nonexistent"
@@ -41,12 +41,12 @@ Checking the status for a digest which was never submitted will give
 
 
 So, first, we want to register the document's digest in
-proofofexistence. This will return a bitcoin payment address, and the
+Proof of Science. This will return a bitcoin payment address, and the
 minimum price (in satoshi, 0.00000001 BTC = 1 satoshi) to be paid to
 that address in order to get the document proof inserted in the
 blockchain.
 <pre>
-	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://www.proofofexistence.com/api/v1/register; echo
+	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://proofofscience.appspot.com/api/v1/register; echo
 {
     "success": true,
     "digest": "15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832",
@@ -61,7 +61,7 @@ blockchain.
 If we now check the document's digest status, we get it is "registered".
 We want to get it from "registered" to "pending" after that.
 <pre>
-	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://www.proofofexistence.com/api/v1/status; echo
+	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://proofofscience.appspot.com/api/v1/status; echo
 {
     "success": true,
     "status": "registered"
@@ -75,7 +75,7 @@ After making payment to indicated address
 satoshis:
 
 <pre>
-	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://www.proofofexistence.com/api/v1/status; echo
+	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://proofofscience.appspot.com/api/v1/status; echo
 {
     "success": true,,
     "status": "pending"
@@ -89,7 +89,7 @@ blockchain. After payment was processed and the certifying transaction
 created, the status should change to "confirmed":
 
 <pre>
-	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://www.proofofexistence.com/api/v1/status; echo
+	<code>curl -k -d d=15db6dbff597875ea13246e1c166802b690663c4e0635bfca78049d5a8762832 http://proofofscience.appspot.com/api/v1/status; echo
 {
     success": true
     "status": "confirmed"
@@ -99,7 +99,8 @@ created, the status should change to "confirmed":
 
 
 That's it! If you have any questions/feedback/problems,
-<a href="mailto:admin@proofofexistence.com">drop me an email!</a>
+file an issue <a href="https://github.com/msjoinder/proofofscience/issues">on GitHub</a>!
+
 
 <a id="sha256"> </a>
 <h3>Calculating the SHA256 digest</h3>
